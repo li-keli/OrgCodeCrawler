@@ -23,8 +23,8 @@ namespace OrgCodeCrawler
 
         private void Detailed_Load(object sender, EventArgs e)
         {
-            list_show.Columns.Add("项目", 90);
-            list_show.Columns.Add("值", 200);
+            list_show.Columns.Add("项目", 160);
+            list_show.Columns.Add("值", 410);
             list_show.GridLines = true; //显示表格线
             list_show.View = View.Details;//显示表格细节
             list_show.LabelEdit = true; //是否可编辑,ListView只可编辑第一列。

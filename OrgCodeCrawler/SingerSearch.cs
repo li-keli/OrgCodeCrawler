@@ -79,8 +79,7 @@ namespace OrgCodeCrawler
         private void LoadFirst()
         {
             tb_logs.AppendText((string.IsNullOrWhiteSpace(tb_logs.Text) ? "" : "\r\n") + DateTime.Now + " 采集引擎初始化...");
-            DoSql.ValidateQgTable();
-            DoSql.ValidateBjTable();
+            DoSql.ValidateDb();
         }
 
         private void lb_return_MouseDoubleClick(object sender, MouseEventArgs e)

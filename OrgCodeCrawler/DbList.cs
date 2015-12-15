@@ -1,7 +1,11 @@
 ﻿using Crawler.Model;
 using CrawlerPro;
+using CrawlerPro.Common;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace OrgCodeCrawler
@@ -47,12 +51,14 @@ namespace OrgCodeCrawler
             if (string.IsNullOrWhiteSpace(dbName))
             {
                 label_message.Text = "没有历史存留数据";
+                ClearListView();
                 return;
             }
             var data = DoSql.SelectInfoByDb<CrawlerQgOut>($"select * from {(radiob_qg.Checked ? "Crawler_Qg" : "Crawler_Bj")}", dbName);
             if (data == null || data.Count <= 0)
             {
                 label_message.Text = "抱歉，没有查找到数据";
+                ClearListView();
                 return;
             }
 
@@ -60,12 +66,17 @@ namespace OrgCodeCrawler
             listView_data.View = View.Details;//显示表格细节
             listView_data.Scrollable = true;//有滚动条
             listView_data.FullRowSelect = true;//是否可以选择行
-            listView_data.Items.Clear();
-            listView_data.Columns.Clear();
+            ClearListView();
             listView_data.Columns.Add("", 1, HorizontalAlignment.Left);
             BuildHead(data[0]);
             foreach (var item in data)
                 AppednText(item);
+        }
+
+        public void ClearListView()
+        {
+            listView_data.Items.Clear();
+            listView_data.Columns.Clear();
         }
 
         public void BuildHead<T>(T t)
@@ -103,25 +114,44 @@ namespace OrgCodeCrawler
             listView_data.Items.Add(listviewitem);
         }
 
-        private void 隐藏本列ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            
-            var text = listView_data.SelectedItems[0].SubItems[1].Text;
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                Clipboard.SetDataObject(text);
-                MessageBox.Show("已经复制到剪贴板！", "消息", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-        }
-
         private void 导出至ExcelToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var text = listView_data.SelectedItems[0].SubItems[1].Text;
-            if (!string.IsNullOrWhiteSpace(text))
+            //var data = listView_data.SelectedItems.Cast<dynamic>().ToArray();
+            //var a = listView_data.SelectedItems[1].SubItems[1].Text;
+            var dbName = (comboDbList.Text ?? "").ToString().Split('[')[0].Trim(']');
+            if (string.IsNullOrWhiteSpace(dbName))
             {
-                Clipboard.SetDataObject(text);
-                MessageBox.Show("已经复制到剪贴板！", "消息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                label_message.Text = "没有历史存留数据";
+                return;
             }
+            IList<string> data = new List<string>();
+            for (int i = 0; i < listView_data.SelectedItems.Count; i++)
+            {
+                data.Add(listView_data.SelectedItems[i].SubItems[2].Text);
+            }
+            string localFilePath = "";
+            var saveFile = new SaveFileDialog
+            {
+                Filter = @"xls files(*.xls)|*.txt|All files(*.*)|*.*",
+                FileName = "导出数据.xls",
+                FilterIndex = 2,
+                RestoreDirectory = true
+            };
+            if (saveFile.ShowDialog() == DialogResult.OK)
+                localFilePath = saveFile.FileName;
+            if (string.IsNullOrEmpty(localFilePath))
+                return;
+            var selectIndex = radiob_qg.Checked ? 0 : 1;
+            new Thread(delegate ()
+            {
+                var bytes = DoSql.SelectInfoByDb<CrawlerQgOut>($"select * from {(radiob_qg.Checked ? "Crawler_Qg" : "Crawler_Bj")}", dbName, data).ListToExcel("导出数据");
+                File.WriteAllBytes(localFilePath, bytes);
+                Invoke(new Action(() =>
+                {
+                    MessageBox.Show(@"导出成功！");
+                }));
+            })
+            { IsBackground = true }.Start();
         }
 
     }

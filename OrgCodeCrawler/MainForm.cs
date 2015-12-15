@@ -43,9 +43,7 @@ namespace OrgCodeCrawler
         {
             //IsExist(); //检查是否存在历史数据
             //初始化
-            DoSql.ChangeDb();
-            DoSql.ValidateQgTable();
-            DoSql.ValidateBjTable();
+            DoSql.ValidateDb();
             try
             {
                 MessageBox.Show(@"任务列表文本文件中，企业名一行一个。", @"温馨提示", MessageBoxButtons.OK, MessageBoxIcon.Information);

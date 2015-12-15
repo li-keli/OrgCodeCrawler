@@ -57,6 +57,15 @@ namespace CrawlerPro
 
         #region 初始化
         /// <summary>
+        /// 初始化数据库
+        /// </summary>
+        public static void ValidateDb() {
+            ChangeDb();
+            ValidateQgTable();
+            ValidateBjTable();
+        }
+
+        /// <summary>
         /// 初始化全国数据库
         /// </summary>
         public static void ValidateQgTable()

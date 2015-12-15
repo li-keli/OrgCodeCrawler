@@ -40,7 +40,6 @@
             this.b_search = new System.Windows.Forms.Button();
             this.label_message = new System.Windows.Forms.Label();
             this.contextMenuStrip_tableHead = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.隐藏本列ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导出至ExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip_top.SuspendLayout();
             this.contextMenuStrip_tableHead.SuspendLayout();
@@ -51,7 +50,7 @@
             this.listView_data.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_data.Location = new System.Drawing.Point(0, 25);
             this.listView_data.Name = "listView_data";
-            this.listView_data.Size = new System.Drawing.Size(1001, 376);
+            this.listView_data.Size = new System.Drawing.Size(1001, 443);
             this.listView_data.TabIndex = 0;
             this.listView_data.UseCompatibleStateImageBehavior = false;
             // 
@@ -76,8 +75,8 @@
             // 选择显示项ToolStripMenuItem
             // 
             this.选择显示项ToolStripMenuItem.Name = "选择显示项ToolStripMenuItem";
-            this.选择显示项ToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
-            this.选择显示项ToolStripMenuItem.Text = "选择显示项";
+            this.选择显示项ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.选择显示项ToolStripMenuItem.Text = "管理历史缓存";
             // 
             // comboDbList
             // 
@@ -127,7 +126,7 @@
             this.label_message.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label_message.AutoSize = true;
             this.label_message.ForeColor = System.Drawing.Color.Red;
-            this.label_message.Location = new System.Drawing.Point(870, 5);
+            this.label_message.Location = new System.Drawing.Point(671, 5);
             this.label_message.Name = "label_message";
             this.label_message.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.label_message.Size = new System.Drawing.Size(0, 12);
@@ -136,17 +135,9 @@
             // contextMenuStrip_tableHead
             // 
             this.contextMenuStrip_tableHead.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.隐藏本列ToolStripMenuItem,
             this.导出至ExcelToolStripMenuItem});
             this.contextMenuStrip_tableHead.Name = "contextMenuStrip_tableHead";
-            this.contextMenuStrip_tableHead.Size = new System.Drawing.Size(142, 48);
-            // 
-            // 隐藏本列ToolStripMenuItem
-            // 
-            this.隐藏本列ToolStripMenuItem.Name = "隐藏本列ToolStripMenuItem";
-            this.隐藏本列ToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
-            this.隐藏本列ToolStripMenuItem.Text = "隐藏本列";
-            this.隐藏本列ToolStripMenuItem.Click += new System.EventHandler(this.隐藏本列ToolStripMenuItem_Click);
+            this.contextMenuStrip_tableHead.Size = new System.Drawing.Size(153, 48);
             // 
             // 导出至ExcelToolStripMenuItem
             // 
@@ -159,7 +150,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1001, 401);
+            this.ClientSize = new System.Drawing.Size(1001, 468);
             this.Controls.Add(this.label_message);
             this.Controls.Add(this.b_search);
             this.Controls.Add(this.radiob_bj);
@@ -193,7 +184,6 @@
         private System.Windows.Forms.Button b_search;
         private System.Windows.Forms.Label label_message;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_tableHead;
-        private System.Windows.Forms.ToolStripMenuItem 隐藏本列ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 导出至ExcelToolStripMenuItem;
     }
 }
