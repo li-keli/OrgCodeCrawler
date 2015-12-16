@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.b_showDbList = new System.Windows.Forms.Button();
             this.b_go = new System.Windows.Forms.Button();
             this.gmTrackBar1 = new Gdu.WinFormUI.GMTrackBar();
             this.cb_type = new System.Windows.Forms.ComboBox();
@@ -56,7 +57,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.saveExcel = new System.Windows.Forms.SaveFileDialog();
-            this.b_showDbList = new System.Windows.Forms.Button();
+            this.label_ip = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -73,10 +74,20 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Location = new System.Drawing.Point(5, 83);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(283, 249);
+            this.groupBox1.Size = new System.Drawing.Size(283, 247);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "配置";
+            // 
+            // b_showDbList
+            // 
+            this.b_showDbList.Location = new System.Drawing.Point(13, 116);
+            this.b_showDbList.Name = "b_showDbList";
+            this.b_showDbList.Size = new System.Drawing.Size(258, 34);
+            this.b_showDbList.TabIndex = 5;
+            this.b_showDbList.Text = "打开采集数据查看器";
+            this.b_showDbList.UseVisualStyleBackColor = true;
+            this.b_showDbList.Click += new System.EventHandler(this.b_showDbList_Click);
             // 
             // b_go
             // 
@@ -316,22 +327,23 @@
             this.notifyIcon.Text = "notifyIcon1";
             this.notifyIcon.Visible = true;
             // 
-            // b_showDbList
+            // label_ip
             // 
-            this.b_showDbList.Location = new System.Drawing.Point(13, 116);
-            this.b_showDbList.Name = "b_showDbList";
-            this.b_showDbList.Size = new System.Drawing.Size(258, 34);
-            this.b_showDbList.TabIndex = 5;
-            this.b_showDbList.Text = "打开采集数据查看器";
-            this.b_showDbList.UseVisualStyleBackColor = true;
-            this.b_showDbList.Click += new System.EventHandler(this.b_showDbList_Click);
+            this.label_ip.AutoSize = true;
+            this.label_ip.Font = new System.Drawing.Font("宋体", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel, ((byte)(134)));
+            this.label_ip.Location = new System.Drawing.Point(3, 333);
+            this.label_ip.Name = "label_ip";
+            this.label_ip.Size = new System.Drawing.Size(110, 10);
+            this.label_ip.TabIndex = 7;
+            this.label_ip.Text = "127.0.0.1（本地网络）";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(651, 335);
+            this.ClientSize = new System.Drawing.Size(651, 345);
+            this.Controls.Add(this.label_ip);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
@@ -349,6 +361,7 @@
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -381,6 +394,7 @@
         private Gdu.WinFormUI.GMRollingBar gmRollingBar1;
         private System.Windows.Forms.SaveFileDialog saveExcel;
         private System.Windows.Forms.Button b_showDbList;
+        private System.Windows.Forms.Label label_ip;
     }
 }
 

@@ -10,6 +10,11 @@ namespace CrawlerPro
     /// </summary>
     public class CrawlerBegin : CrawlerCom
     {
+        private Label IpAddress { set; get; }
+        public CrawlerBegin(Label Ip)
+        {
+            IpAddress = Ip;
+        }
         /// <summary>
         /// 北京企业信息网爬虫中继
         /// </summary>
@@ -57,11 +62,9 @@ namespace CrawlerPro
         }
 
         private TextBox ListLogs { set; get; }
-        private Label IpAddress { set; get; }
-        public string SingelCrawlerThread(string searchText, ListBox list, TextBox listbox, Label ip, 
+        public string SingelCrawlerThread(string searchText, ListBox list, TextBox listbox, 
             string changeIp = null)
         {
-            IpAddress = ip;
             ListLogs = listbox;
             try
             {
@@ -84,12 +87,21 @@ namespace CrawlerPro
         /// <param name="IP"></param>
         private string SetIpAddress(string IP)
         {
-            if (string.IsNullOrWhiteSpace(IP))
-                return "";
-            var returnmModel = IpToAddress.IpAddress(IP.Split(':')[0].Trim());
-            if (returnmModel == null)
+            try
+            {
+                if (string.IsNullOrWhiteSpace(IP))
+                    return "";
+                var returnmModel = IpToAddress.IpAddress(IP.Split(':')[0].Trim());
+                if (returnmModel == null)
+                    return "IP地址解析错误";
+                return returnmModel.s0 + " " + returnmModel.s1;
+            }
+            catch (Exception e)
+            {
+                OutLog("IP地址解析：" + e.Message);
                 return "IP地址解析错误";
-            return returnmModel.s0 + " " + returnmModel.s1;
+            }
+
         }
 
 
@@ -107,11 +119,12 @@ namespace CrawlerPro
 
         public override void ShowIpAddress(string Ip)
         {
-            if (Ip.Contains(""))
+            if (Ip.Contains(":"))
             {
+                var aa = SetIpAddress(Ip);
                 IpAddress.Invoke(new MethodInvoker(delegate ()
                 {
-                    IpAddress.Text = SetIpAddress(Ip);
+                    IpAddress.Text = aa;
                 }));
             }
         }

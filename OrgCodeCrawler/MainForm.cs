@@ -69,7 +69,7 @@ namespace OrgCodeCrawler
                             new CountrywideCrawler(_setting).CookieInitialization(_task); //全国组织机构代码爬虫线程
                             break;
                         case 1:
-                            new CrawlerBegin().CrawlerBeginFunc(_task, _setting.ThreadCount); //北京企业信息爬虫线程
+                            new CrawlerBegin(label_ip).CrawlerBeginFunc(_task, _setting.ThreadCount); //北京企业信息爬虫线程
                             break;
                         default:
                             break;
@@ -256,11 +256,9 @@ namespace OrgCodeCrawler
                 switch (index)
                 {
                     case 0:
-                        //bytes = SqlHelper.ReadTable("Crawler_Result").ListToExcel("北京库");
                         bytes = DoSql.SelectQgInfo().ListToExcel("全国库导出数据");
                         break;
                     case 1:
-                        //bytes = SqlHelper.ReadTable("Crawler_Result").ListToExcel("北京库");
                         bytes = DoSql.SelectBjInfo().ListToExcel("北京库导出数据");
                         break;
                     default:

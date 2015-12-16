@@ -53,7 +53,7 @@ namespace OrgCodeCrawler
                         break;
                     case 1:
                         //北京企业信息爬虫线程
-                        var Ip = new CrawlerBegin().SingelCrawlerThread(searchText, lb_return, tb_logs, l_ipaddress, (string)objCache["Ip"]);
+                        var Ip = new CrawlerBegin(l_ipaddress).SingelCrawlerThread(searchText, lb_return, tb_logs, (string)objCache["Ip"]);
                         objCache["Ip"] = Ip;
                         foreach (var item in DoSql.SelectBjInfo().Select(m => m.市工商局_名称))
                         {

@@ -31,7 +31,10 @@ namespace OrgCodeCrawler
             {
                 comboDbList.Items.Add(item.Name + "[" + item.CreationTime + "]");
             }
-            comboDbList.SelectedIndex = 0;
+            if (comboDbList.Items.Count > 0)
+            {
+                comboDbList.SelectedIndex = 0;
+            }
         }
 
         private void b_search_Click(object sender, EventArgs e)
@@ -54,22 +57,28 @@ namespace OrgCodeCrawler
                 ClearListView();
                 return;
             }
-            var data = DoSql.SelectInfoByDb<CrawlerQgOut>($"select * from {(radiob_qg.Checked ? "Crawler_Qg" : "Crawler_Bj")}", dbName);
-            if (data == null || data.Count <= 0)
+            if (radiob_qg.Checked)
+                ShowListView(DoSql.SelectInfoByDb<CrawlerQgOut>($"select * from {(radiob_qg.Checked ? "Crawler_Qg" : "Crawler_Bj")}", dbName));
+            else
+                ShowListView(DoSql.SelectInfoByDb<CrawlerBjOut>($"select * from {(radiob_qg.Checked ? "Crawler_Qg" : "Crawler_Bj")}", dbName));
+        }
+
+        private void ShowListView<T>(IList<T> lists)
+        {
+            if (lists == null || lists.Count <= 0)
             {
                 label_message.Text = "抱歉，没有查找到数据";
                 ClearListView();
                 return;
             }
-
             listView_data.GridLines = true; //显示表格线
             listView_data.View = View.Details;//显示表格细节
             listView_data.Scrollable = true;//有滚动条
             listView_data.FullRowSelect = true;//是否可以选择行
             ClearListView();
             listView_data.Columns.Add("", 1, HorizontalAlignment.Left);
-            BuildHead(data[0]);
-            foreach (var item in data)
+            BuildHead(lists[0]);
+            foreach (var item in lists)
                 AppednText(item);
         }
 
@@ -144,7 +153,15 @@ namespace OrgCodeCrawler
             var selectIndex = radiob_qg.Checked ? 0 : 1;
             new Thread(delegate ()
             {
-                var bytes = DoSql.SelectInfoByDb<CrawlerQgOut>($"select * from {(radiob_qg.Checked ? "Crawler_Qg" : "Crawler_Bj")}", dbName, data).ListToExcel("导出数据");
+                byte[] bytes = null;
+                if (radiob_qg.Checked)
+                {
+                    bytes = DoSql.SelectInfoByDb<CrawlerQgOut>($"select * from {(radiob_qg.Checked ? "Crawler_Qg" : "Crawler_Bj")}", dbName, data).ListToExcel("导出数据");
+                }
+                else
+                {
+                    bytes = DoSql.SelectInfoByDb<CrawlerBjOut>($"select * from {(radiob_qg.Checked ? "Crawler_Qg" : "Crawler_Bj")}", dbName, data).ListToExcel("导出数据");
+                }
                 File.WriteAllBytes(localFilePath, bytes);
                 Invoke(new Action(() =>
                 {

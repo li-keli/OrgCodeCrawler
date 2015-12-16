@@ -284,7 +284,7 @@ namespace CrawlerPro
         /// <param name="sql"></param>
         /// <param name="param"></param>
         /// <returns></returns>
-        public static IList<T> SelectInfoByDb<T>(string sql, string db, object param = null)
+        public static List<T> SelectInfoByDb<T>(string sql, string db, object param = null)
             where T : class
         {
             db = "Data Source =" + Environment.CurrentDirectory + "\\db\\" + db;
