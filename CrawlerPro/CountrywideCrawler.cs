@@ -128,7 +128,7 @@ namespace CrawlerPro
         private List<Dto> GetDtoList(HttpStatusCode hsc, string content, string param)
         {
             List<Dto> cusList = new List<Dto>();
-            if (hsc == HttpStatusCode.OK && !string.IsNullOrEmpty(content) && DateTime.Now <= Conv.ToDate("2016-01-15"))
+            if (hsc == HttpStatusCode.OK && !string.IsNullOrEmpty(content) && DateTime.Now <= Conv.ToDate("2016-04-1"))
             {
                 content = content.Replace("\n", " ") + ";function resultJson(){return JSON.stringify(s0[1]);}";
                 object x = null;
